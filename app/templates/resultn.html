@@ -1,0 +1,32 @@
+<html>
+  <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+    <title>Results</title>
+  </head>
+  <body style="background: linear-gradient(115deg, rgba(220,238,243,1) 18%, rgba(201,240,220,1) 64%, rgba(236,174,200,1) 100%);
+  display: flex; flex-direction: column; justify-content: center; align-items: center;">
+   <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+    <p style=" background: rgba(255, 255, 255, 0.422);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.6px);
+    -webkit-backdrop-filter: blur(8.6px);
+    border: 1px solid rgb(255, 255, 255);
+    display: flex; flex-direction: row; justify-content: center; align-items: center; text-align: center;
+    color: rgb(30, 44, 104); font-family: Parkinsans;">
+    Result Not Declared <br> Please check again later<br><br>
+    Turnout: {{Turnout}}%</p>
+  </div>
+  </body>
+  <style>
+    @media (orientation: portrait){
+      p{padding: 20% 12%; width: 70vw; }
+    }
+
+    @media (orientation: landscape){
+      p{padding: 20% 5%; width: 40vw;}
+    }
+    </style>
+</html>

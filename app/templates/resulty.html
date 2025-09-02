@@ -1,0 +1,76 @@
+<html>
+  <head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+    <title></title>
+  </head>
+  <body style="background: linear-gradient(115deg, rgba(220,238,243,1) 18%, rgba(201,240,220,1) 64%, rgba(236,174,200,1) 100%);
+  display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    
+   <div class="bigwrap">
+     <div class="tablewrapper">
+    
+           <h2>Result Summary</h2>
+      <div class="tables">
+         <table> 
+           <tr>
+             <th width="25%">Presidental Candidate</th>
+             <th width="25%">Total votes</th>
+           </tr>
+           {% for candidatepresident in Candidatespresident %}
+           <tr>
+             <td>{{candidatepresident.name}}</td>
+             <td>{{vote_gain_president.count(candidatepresident.name)}}</td>
+           </tr>
+          {% endfor %}
+           </tr>
+           
+         </table>
+         
+         <div class="land" style="width: 5px; height: 200px; background-color: rgba(169, 184, 190, 0.377); border-radius: 2px;"></div>
+         
+     <table>
+      <tr><th width="25%">Head Candidate</th>
+        <th width="25%">Total votes</th></tr>
+      {% for candidatehead in Candidateshead %}
+      <tr>
+        <td>{{candidatehead.name}}</td>
+        <td>{{vote_gain_head.count(candidatehead.name)}}</td>
+      </tr>
+     {% endfor %}</table>
+    </div>
+     </div>
+     </div>
+  </body>
+  <style>
+    h2{font-family: Parkinsans; color: rgb(30, 44, 104);}
+    td{font-family: Parkinsans; color: rgb(30, 44, 104);text-align: center;}
+    th{font-family: Parkinsans; color: rgb(30, 44, 104);text-align: center;}
+
+    .tablewrapper{background: rgba(255, 255, 255, 0.422);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.6px);
+    -webkit-backdrop-filter: blur(8.6px);
+    border: 1px solid rgb(255, 255, 255);
+    text-align: center;}
+    
+    @media (orientation: portrait){
+      .bigwrap{width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;}
+      .tables{display: flex; flex-direction: column; justify-content: center; align-content: center;}
+      .tablewrapper{width: 70vw;padding: 10%; margin-top: 10% }
+      .land{display: none;}
+    }
+
+    @media (orientation: landscape){
+      .bigwrap{width: 100%; height: 100%; display: flex; flex-direction: row; justify-content: space-evenly; align-items: center;}
+      .tables{width: 50vw; display: flex; flex-direction: row; justify-content: space-between; align-content: center;}
+      .tablewrapper{padding: 2% 10vw 5%;}
+
+    }
+  </style>
+
+</html>

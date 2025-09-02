@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+</head>
+<body style="min-height: 97dvh; min-width: 90dvw;
+display: flex; flex-direction: column; justify-content: center; align-items: center;
+ background: linear-gradient(115deg, rgba(220,238,243,1) 18%, rgba(201,240,220,1) 64%, rgba(236,174,200,1) 100%);">
+    <div class="bigwrapper"><h1>{{ title }}</h1>
+    <div>
+        <form method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <input class="inp" type="text" name="hash" placeholder="Enter Block Hash">
+        <button class="button" type="submit">Verify</button>
+    </form>
+    </div>
+        <div>
+    {% if valid is not none %}
+        {% if valid %}
+            <p>Hash is valid!</p>
+            <p>Vote: {{ voter_id }}</p>
+            <p>Time: {{ timestamp }}</p>
+        {% else %}
+            <p>Hash is invalid!</p>
+        {% endif %}
+    {% endif %}
+        </div>
+</div>
+</body>
+<style>
+    h1{color: rgb(30, 44, 104);font-family: Parkinsans;}
+    p{color: rgb(30, 44, 104);	font-family: Consolas; 
+    display: flex; flex-direction: column; justify-content: center; align-items: center;}
+    .bigwrapper{
+        background: rgba(255, 255, 255, 0.422);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        -webkit-backdrop-filter: blur(8.6px);
+        backdrop-filter: blur(8.6px);
+        border: 1px solid rgb(255, 255, 255);  
+        display: flex; flex-direction: column; justify-content: center; align-items: center;  
+        height: auto; width: auto;
+    }
+    .inp{background-color: rgba(255, 255, 255, 0.402);
+            border: 1px solid white;
+            padding: 2% 0%;}
+    .button{
+        background-color: rgba(234, 239, 242, 0.674); 
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(8.6px);
+        -webkit-backdrop-filter: blur(8.6px);
+        border: 2px solid rgb(104, 174, 185);
+		border-radius: 20px;
+        color: rgb(30, 44, 104);	font-family: Parkinsans;
+    }
+    @media (orientation: portrait){
+    .bigwrapper{padding: 5% 3%; width: 80%;}
+    h1{font-size: 3vh;}
+    p{font-size: 1vh;;}
+    
+    }
+
+    @media (orientation: landscape){
+    .bigwrapper{padding: 3% 3%; width: 70%;}
+    h1{font-size: 3vw; margin-block-start: 0%;}
+    p{font-size: 1.5vw;}
+    
+    }
+</style>
+</html>

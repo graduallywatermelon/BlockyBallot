@@ -1,0 +1,238 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+	<br>
+	<div class="bigwrap">
+<center>
+	<div class="leftwrap">
+	
+		
+		<form class ="form" action="/submit" id="textform" method="post">
+			<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+			<table class="votetable">
+			 <tr>
+				  <td>
+					  <label>Select Presdintial Candidate to vote for</label>
+				  </td>
+				<td><div>
+					{% for candidate in Candidatespresident %}
+					    <div style="display: flex; flex-direction: row;">
+						<input name ="president" type="radio" id="{{candidate.name}}" value="{{candidate.name}}" required>
+						<table for="{{candidate.name}}">
+						<tr>
+							<td><div for="{{candidate.name}}"><label for="{{candidate.name}}" >{{candidate.name}}</label></td>
+							<td><img for="{{candidate.name}}" src="{{candidate.logo}}"></td>
+						</tr>
+							</table>
+							
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				</td>
+			</tr>
+			 <tr>
+				  <td>
+					  <label>Select Candidate for student council head</label>
+				  </td>
+				<td><div>
+					{% for candidate in Candidateshead %}
+					    <div style="display: flex; flex-direction: row;">
+						<input name ="head" type="radio" id="{{candidate.name}}" value="{{candidate.name}}" required>
+						<table for="{{candidate.name}}">
+						<tr>
+							<td><div for="{{candidate.name}}"><label for="{{candidate.name}}" >{{candidate.name}}</label></td>
+							<td><img for="{{candidate.name}}" src="{{candidate.logo}}"></td>
+						</tr>
+							</table>
+							
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>Enter Voter ID</label>
+				</td>
+				<td>
+					<input class="inp" type="text" name="voter_id" placeholder="ID001" required>
+					
+				</td>	
+			</tr>
+			<tr>
+				<td>
+					<label>Enter Password</label>
+				</td>
+				<td>
+					<input class="inp" type="text" name="password" placeholder="pass" required>
+				</td>	
+			</tr>
+			<tr>
+				<td><input type="hidden" name="face_image" id="faceImage"></td>
+				<td>
+					<input class="button" type="submit" value="Vote">
+				</td>
+			</tr>
+			</table>
+		</form>
+		<video id="video" width="640" height="480" autoplay></video>
+		<canvas id="canvas" width="640" height="480" class="hidden"></canvas>
+	</div>
+</center>
+		<div style="overflow-y:auto ">
+		<center>
+			<div class="sampletable">
+			<label>Sample Voter IDs</label>
+			<table class="sample">
+			  	
+					{% for voter_id in voter_ids %}
+					<tr class="sam">
+						<td class="sam" style="text-align: center; margin: auto;">
+				  			{{voter_id}}
+				  		</td>
+					</tr>
+				  	{% endfor %}
+			</table>
+			</div>
+		</center>
+		</div>
+	</div>
+	<br>
+
+	<script>
+        // Access the webcam
+        var video = document.getElementById('video');
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                video.srcObject = stream;
+            })
+            .catch(function(err) {
+                console.log("An error occurred: " + err);
+            });
+
+        // Capture photo on form submit
+        var form = document.getElementById('textform');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, 640, 480);
+            var dataURL = canvas.toDataURL('image/jpeg');
+            document.getElementById('faceImage').value = dataURL;
+            form.submit();
+        });
+    </script>
+
+	<style>
+	label{
+		color: rgb(30, 44, 104);
+		font-family: Parkinsans;
+	}
+
+	.bigwrap{
+		display: flex;}
+	.leftwrap{
+		background: rgba(255, 255, 255, 0.422);
+   		border-radius: 16px;
+   		box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+   		backdrop-filter: blur(8.6px);
+   		-webkit-backdrop-filter: blur(8.6px);
+   		border: 1px solid rgb(255, 255, 255);  
+   		 
+   		height: auto; width: auto;}
+
+	.sampletable{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-content: center;
+		background: rgba(255, 255, 255, 0.422);
+   		border-radius: 16px;
+   		box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+   		backdrop-filter: blur(8.6px);
+   		-webkit-backdrop-filter: blur(8.6px);
+   		border: 1px solid rgb(255, 255, 255);}
+
+	.votetable{text-align: center;}
+    table.votetable td { text-align: center;}
+    table.sample td { text-align: center; }
+	.inp{width: 80%;background-color: rgba(255, 255, 255, 0.402);
+            border: 1px solid white;
+            padding: 0% 5%;}
+	.form{height: 100%;
+		display: flex;
+		 flex-direction: column; justify-content: space-evenly; align-items: center; }
+
+
+
+	@media (orientation: portrait){
+	.bigwrap{flex-direction: column;
+	justify-content: center;
+	align-content: center;}
+    .sample{width: 25%; height: 5vh;}
+	.leftwrap{width: 85vw; margin-top: 10%; padding: 4% 6%;}
+    .votetable{border-collapse: separate; border-spacing: 10px 30px;}
+	img {width: 10vw; height: 10vw;}
+	.inp{height: 50px;}
+	label{font-size: 70%;}
+	.button{margin: 40px; width: 200px; height: 50px;}
+    
+	.sampletable { width: 75vw; height: auto; border-collapse: collapse;  margin-top: 20%; padding: 5%;} 
+	table.sample { width: 75vw; height: auto; border-collapse: collapse;  margin-top: 10%; padding: 5%;} 
+
+	table.sample th {text-align: center;}
+	table.sample tbody {display: flex; flex-wrap: wrap;}
+	table.sample tbody tr {display: flex; width: 33%;  box-sizing: border-box; } 
+	table.sample td {width: 50%; box-sizing: border-box; color: rgb(30, 44, 104);	font-family: Parkinsans;}
+	}
+
+    @media (orientation: landscape){
+	.bigwrap{flex-direction: row;justify-content: space-around;width: 100%; margin-top: 2%;}
+    .sample{width: 20%; height: 4vh;}
+    .votetable{border-collapse: separate; border-spacing: 10px 15px;}
+	img {width: 5vw; height: 10vh;}
+	.leftwrap{width: 90%; padding: 1% 20%; float: left;}
+	.sampletable { width: auto; height: auto; padding: 5%; margin-left: 20%;} 
+	.sample {width: 100%; text-align: center; margin: 20% 0% 20%;}
+	.button{margin: 40px; width: 125px; height: 40px;}
+	.form{margin: 0px;}
+	.inp{height: 40px;}
+    }
+
+	table {
+	  font-family: arial, sans-serif;
+	  border-collapse: collapse;
+	  width: 100%;
+	}
+
+	
+
+	.button{
+        background-color: rgba(234, 239, 242, 0.674); 
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(8.6px);
+        -webkit-backdrop-filter: blur(8.6px);
+        border: 3px solid rgb(255, 255, 255);
+        border-radius: 5px; margin: none;
+		color: rgb(30, 44, 104);
+		font-family: Parkinsans;
+    }
+
+	.col-md-4{
+	    float: left;
+	    width: 33.33333333%;
+	}
+	.col-md-2{
+	    float: left;
+	    width: 16.33333333%;
+	}
+	.col-md-6{
+	    float: left;
+	    width: 60.33333333%;
+	}
+	</style>
+    </div>
+{% endblock %}
