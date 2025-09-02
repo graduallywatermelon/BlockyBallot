@@ -27,7 +27,7 @@ Traditional electronic voting systems often struggle with trust, security, and a
 ⚙️ Installation Guide
 ### Clone the repository
 ```
-git clone https://github.com/graduallywatermelon/BlockBallot/
+git clone https://github.com/graduallywatermelon/BlockyBallot/
 cd BlockBallot
 ```
 ### Create and activate virtual environment
